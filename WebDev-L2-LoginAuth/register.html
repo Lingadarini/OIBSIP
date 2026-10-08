@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Register</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="auth-box">
+    <h1>Create Account</h1>
+    <form id="registerForm">
+      <label for="regEmail">Email / Username</label>
+      <input type="text" id="regEmail" placeholder="Enter email or username" required>
+
+      <label for="regPassword">Password</label>
+      <input type="password" id="regPassword" placeholder="Min 8 characters, at least 1 number" required>
+
+      <p id="regError" class="error-msg"></p>
+      <p id="regSuccess" class="success-msg"></p>
+
+      <button type="submit">Register</button>
+    </form>
+    <p class="switch-link">Already have an account? <a href="login.html">Login</a></p>
+  </div>
+
+<script src="script.js"></script>
+<script>
+  document.getElementById("registerForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const email = document.getElementById("regEmail").value.trim();
+    const password = document.getElementById("regPassword").value;
+    const errorEl = document.getElementById("regError");
+    const successEl = document.getElementById("regSuccess");
+
+    errorEl.textContent = "";
+    successEl.textContent = "";
+
+    if (email === "" || password === "") {
+      errorEl.textContent = "Please fill in all fields.";
+      return;
+    }
+
+    if (password.length < 8 || !/\d/.test(password)) {
+      errorEl.textContent = "Password must be at least 8 characters and include at least 1 number.";
+      return;
+    }
+
+    const users = getUsers();
+    if (users.find(u => u.email.toLowerCase() === email.toLowerCase())) {
+      errorEl.textContent = "An account with this email/username already exists.";
+      return;
+    }
+
+    const hashedPassword = await hashPassword(password);
+    users.push({ email, password: hashedPassword });
+    saveUsers(users);
+
+    successEl.textContent = "Account created! Redirecting to login...";
+    setTimeout(() => window.location.href = "login.html", 1200);
+  });
+</script>
+</body>
+</html>

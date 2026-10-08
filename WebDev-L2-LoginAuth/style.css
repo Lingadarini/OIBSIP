@@ -1,0 +1,104 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, #4361ee, #3a0ca3);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.auth-box, .dashboard-box {
+  background: #fff;
+  width: 100%;
+  max-width: 380px;
+  padding: 35px 30px;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  text-align: center;
+}
+
+.auth-box h1, .dashboard-box h1 {
+  margin-bottom: 20px;
+  color: #2b2b3d;
+}
+
+.auth-box form {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.auth-box label {
+  font-size: 0.85rem;
+  color: #555;
+  margin-top: 12px;
+  margin-bottom: 5px;
+}
+
+.auth-box input {
+  padding: 11px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 0.95rem;
+}
+
+.auth-box button, .dashboard-box button {
+  margin-top: 20px;
+  padding: 12px;
+  background: #4361ee;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.auth-box button:hover, .dashboard-box button:hover {
+  background: #3049c4;
+}
+
+.error-msg {
+  color: #d90429;
+  font-size: 0.85rem;
+  margin-top: 10px;
+  min-height: 18px;
+}
+
+.success-msg {
+  color: #2d9d57;
+  font-size: 0.85rem;
+  margin-top: 10px;
+  min-height: 18px;
+}
+
+.switch-link {
+  margin-top: 18px;
+  font-size: 0.85rem;
+  color: #555;
+}
+
+.switch-link a {
+  color: #4361ee;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.user-greeting {
+  font-weight: 600;
+  color: #4361ee;
+  margin-bottom: 15px;
+}
+
+.dash-text {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+}

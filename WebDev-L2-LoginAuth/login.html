@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="auth-box">
+    <h1>Login</h1>
+    <form id="loginForm">
+      <label for="loginEmail">Email / Username</label>
+      <input type="text" id="loginEmail" placeholder="Enter email or username" required>
+
+      <label for="loginPassword">Password</label>
+      <input type="password" id="loginPassword" placeholder="Enter password" required>
+
+      <p id="loginError" class="error-msg"></p>
+
+      <button type="submit">Login</button>
+    </form>
+    <p class="switch-link">Don't have an account? <a href="register.html">Register</a></p>
+  </div>
+
+<script src="script.js"></script>
+<script>
+  document.getElementById("loginForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const email = document.getElementById("loginEmail").value.trim();
+    const password = document.getElementById("loginPassword").value;
+    const errorEl = document.getElementById("loginError");
+
+    errorEl.textContent = "";
+
+    if (email === "" || password === "") {
+      errorEl.textContent = "Please fill in all fields.";
+      return;
+    }
+
+    const users = getUsers();
+    const user = users.find(u => u.email.toLowerCase() === email.toLowerCase());
+    const hashedPassword = await hashPassword(password);
+
+    if (!user || user.password !== hashedPassword) {
+      errorEl.textContent = "Incorrect email/username or password.";
+      return;
+    }
+
+    sessionStorage.setItem("loggedInUser", user.email);
+    window.location.href = "dashboard.html";
+  });
+
+  // If already logged in, skip straight to dashboard
+  if (sessionStorage.getItem("loggedInUser")) {
+    window.location.href = "dashboard.html";
+  }
+</script>
+</body>
+</html>

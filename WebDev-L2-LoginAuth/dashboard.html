@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="dashboard-box">
+    <h1>Welcome 👋</h1>
+    <p id="userGreeting" class="user-greeting"></p>
+    <p class="dash-text">This is your protected dashboard. You can only see this page because you're logged in.</p>
+    <button id="logoutBtn">Logout</button>
+  </div>
+
+<script src="script.js"></script>
+<script>
+  const currentUser = sessionStorage.getItem("loggedInUser");
+
+  // Protect this page: redirect to login if no active session
+  if (!currentUser) {
+    window.location.href = "login.html";
+  } else {
+    document.getElementById("userGreeting").textContent = `Logged in as: ${currentUser}`;
+  }
+
+  document.getElementById("logoutBtn").addEventListener("click", () => {
+    sessionStorage.removeItem("loggedInUser");
+    window.location.href = "login.html";
+  });
+</script>
+</body>
+</html>
