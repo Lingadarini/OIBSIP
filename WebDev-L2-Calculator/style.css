@@ -11,7 +11,6 @@ body {
   justify-content: center;
   align-items: center;
   background: lightcyan;
-  /* background: #1e1e2f; */
 }
 
 .calculator {
@@ -24,14 +23,24 @@ body {
 
 .display {
   background: #111118;
+  border-radius: 10px;
+  padding: 15px 15px;
+  margin-bottom: 15px;
+  min-height: 90px;
+  text-align: right;
+}
+
+.expression-line {
+  color: #999;
+  font-size: 1.1rem;
+  min-height: 24px;
+  word-wrap: break-word;
+}
+
+.main-display {
   color: #fff;
   font-size: 2.2rem;
-  text-align: right;
-  padding: 20px 15px;
-  border-radius: 10px;
-  margin-bottom: 15px;
   word-wrap: break-word;
-  min-height: 70px;
 }
 
 .buttons {

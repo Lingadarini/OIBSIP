@@ -1,10 +1,12 @@
 const display = document.getElementById("display");
+const expressionLine = document.getElementById("expressionLine");
 const buttons = document.querySelectorAll(".btn");
 
 let currentInput = "0";
 let previousInput = "";
 let operator = null;
 let resetNext = false;
+let lastExpression = "";
 
 const operatorSymbols = {
   "+": "+",
@@ -14,16 +16,23 @@ const operatorSymbols = {
 };
 
 function updateDisplay() {
-  if (operator && resetNext) {
-    display.textContent = previousInput + " " + operatorSymbols[operator];
+  if (lastExpression) {
+    expressionLine.textContent = lastExpression;
+    display.textContent = currentInput;
+  } else if (operator && resetNext) {
+    expressionLine.textContent = previousInput + " " + operatorSymbols[operator];
+    display.textContent = "";
   } else if (operator) {
-    display.textContent = previousInput + " " + operatorSymbols[operator] + " " + currentInput;
+    expressionLine.textContent = previousInput + " " + operatorSymbols[operator] + " " + currentInput;
+    display.textContent = "";
   } else {
+    expressionLine.textContent = "";
     display.textContent = currentInput;
   }
 }
 
 function inputDigit(digit) {
+  lastExpression = "";
   if (currentInput === "0" || resetNext) {
     currentInput = digit;
     resetNext = false;
@@ -33,6 +42,7 @@ function inputDigit(digit) {
 }
 
 function inputDecimal() {
+  lastExpression = "";
   if (resetNext) {
     currentInput = "0";
     resetNext = false;
@@ -43,6 +53,7 @@ function inputDecimal() {
 }
 
 function setOperator(nextOperator) {
+  lastExpression = "";
   if (operator && !resetNext) {
     calculate();
   }
@@ -58,6 +69,7 @@ function calculate() {
   if (isNaN(prev) || isNaN(curr)) return;
 
   let result;
+  const expressionText = previousInput + " " + operatorSymbols[operator] + " " + currentInput + " =";
 
   switch (operator) {
     case "+":
@@ -72,6 +84,7 @@ function calculate() {
     case "/":
       if (curr === 0) {
         currentInput = "Error";
+        lastExpression = expressionText;
         operator = null;
         previousInput = "";
         resetNext = true;
@@ -85,6 +98,7 @@ function calculate() {
   }
 
   currentInput = parseFloat(result.toFixed(8)).toString();
+  lastExpression = expressionText;
   operator = null;
   previousInput = "";
   resetNext = true;
@@ -95,9 +109,11 @@ function clearAll() {
   previousInput = "";
   operator = null;
   resetNext = false;
+  lastExpression = "";
 }
 
 function backspace() {
+  lastExpression = "";
   if (currentInput.length === 1 || currentInput === "Error") {
     currentInput = "0";
   } else {
